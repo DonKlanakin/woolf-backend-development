@@ -34,6 +34,11 @@ app.patch('/api/v1/students/:id', (req, res) => {
     res.status(200).json({"status": "success", "data": "Data updated successfully."});
 });
 
+app.delete('/api/v1/students/:id', (req, res) => {
+    let id = req.params.id;
+    res.status(200).json({"status": "succes", "data": `Data entry [${id}] has been deleted sucessfully.`});
+});
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
