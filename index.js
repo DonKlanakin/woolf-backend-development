@@ -26,6 +26,14 @@ app.post('/api/v1/students/:id', (req, res) => {
     res.status(200).json({response});
 });
 
+app.patch('/api/v1/students/:id', (req, res) => {
+    if (!req.params.id) {
+        res.status(400).json({"status": "failed", "data": "Bad request"});
+    }
+    // logic
+    res.status(200).json({"status": "success", "data": "Data updated successfully."});
+});
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
