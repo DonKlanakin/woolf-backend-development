@@ -1,0 +1,25 @@
+{
+  "name": "woolf-backend-development",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/DonKlanakin/woolf-backend-development#readme",
+  "bugs": {
+    "url": "https://github.com/DonKlanakin/woolf-backend-development/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DonKlanakin/woolf-backend-development.git"
+  },
+  "license": "ISC",
+  "author": "DK",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10"
+  }
+}
