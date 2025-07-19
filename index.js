@@ -9,35 +9,37 @@ app.use(express.json());
 
 let data = JSON.parse(fs.readFileSync("./students.text"));
 
-app.get('/api/v1/students', (req, res) => {
+const getStudent = (req, res) => {
     res.status(200).json({"status": "success", "data": data});
-});
+};
 
-app.post('/api/v1/students', (req, res) => {
+const getStudentsByParam = (req, res) => {
     let body = req.body;
     let response = data.filter((e) => e.Name.includes(body.Name));
-    console.log(response);
     res.status(200).json({response});
-});
+};
 
-app.post('/api/v1/students/:id', (req, res) => {
+const getStudentById = (req, res) => {
     let id = req.params.id;
     let response = data.find((e) => e.ID == id);
     res.status(200).json({response});
-});
+};
 
-app.patch('/api/v1/students/:id', (req, res) => {
+const updateStudent = (req, res) => {
     if (!req.params.id) {
         res.status(400).json({"status": "failed", "data": "Bad request"});
     }
     // logic
     res.status(200).json({"status": "success", "data": "Data updated successfully."});
-});
+};
 
-app.delete('/api/v1/students/:id', (req, res) => {
+const deleteStudent = (req, res) => {
     let id = req.params.id;
     res.status(200).json({"status": "succes", "data": `Data entry [${id}] has been deleted sucessfully.`});
-});
+};
+
+app.route('/api/v1/students').get(getStudent).post(getStudentsByParam);
+app.route('/api/v1/students/:id').post(getStudentById).patch(updateStudent).delete(deleteStudent);
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
