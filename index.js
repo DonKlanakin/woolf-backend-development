@@ -7,6 +7,12 @@ const port = 8080;
 
 app.use(express.json());
 
+app.use((req, res, next) => {
+    console.log("[Middleware] Hi, DK!");
+    req.requestedAT = new Date().toISOString();
+    next();
+});
+
 let data = JSON.parse(fs.readFileSync("./students.text"));
 
 const getStudent = (req, res) => {
@@ -22,7 +28,7 @@ const getStudentsByParam = (req, res) => {
 const getStudentById = (req, res) => {
     let id = req.params.id;
     let response = data.find((e) => e.ID == id);
-    res.status(200).json({response});
+    res.status(200).json({"status": "success", "requestedAt": req.requestedAT, "data": response});
 };
 
 const updateStudent = (req, res) => {
