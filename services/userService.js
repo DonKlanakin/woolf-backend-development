@@ -1,8 +1,12 @@
 const fs = require('fs');
+const pool = require('../db/pool');
 
 let data = JSON.parse(fs.readFileSync("./students.text"));
 
-exports.getAllUsers = (req, res) => {
+exports.getAllUsers = async (req, res) => {
+    let sql = 'SELECT NOW()'
+    let response = await pool.query(sql);
+    console.log(response);
     res.status(200).json({data});
 }
 
