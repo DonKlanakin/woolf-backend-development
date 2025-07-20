@@ -1,15 +1,14 @@
 const express = require('express');
 const fs = require('fs');
-const { cwd } = require('process');
+const morgan = require('morgan');
 
 const app = express();
 const port = 8080;
 
 app.use(express.json());
-
+app.use(morgan('dev'));
 app.use((req, res, next) => {
-    console.log("[Middleware] Hi, DK!");
-    req.requestedAT = new Date().toISOString();
+    req.requestedAt = new Date().toISOString();
     next();
 });
 
@@ -28,7 +27,7 @@ const getStudentsByParam = (req, res) => {
 const getStudentById = (req, res) => {
     let id = req.params.id;
     let response = data.find((e) => e.ID == id);
-    res.status(200).json({"status": "success", "requestedAt": req.requestedAT, "data": response});
+    res.status(200).json({"status": "success", "requestedAt": req.requestedAt, "data": response});
 };
 
 const updateStudent = (req, res) => {
