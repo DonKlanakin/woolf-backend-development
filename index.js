@@ -18,7 +18,7 @@ const getStudent = (req, res) => {
     res.status(200).json({"status": "success", "data": data});
 };
 
-const getStudentsByParam = (req, res) => {
+const getStudentsByQueryParams = (req, res) => {
     let body = req.body;
     let response = data.filter((e) => e.Name.includes(body.Name));
     res.status(200).json({response});
@@ -40,11 +40,42 @@ const updateStudent = (req, res) => {
 
 const deleteStudent = (req, res) => {
     let id = req.params.id;
-    res.status(200).json({"status": "succes", "data": `Data entry [${id}] has been deleted sucessfully.`});
+    res.status(200).json({"status": "succes", "data": `Data entry [ID=${id}] has been deleted sucessfully.`});
 };
 
-app.route('/api/v1/students').get(getStudent).post(getStudentsByParam);
+const getAllUsers = (req, res) => {
+    res.status(200).json({data});
+}
+
+const getUsersByQueryParams = (req, res) => {
+    let body = req.body;
+    let response = data.filter((e) => e.Name.includes(body.Name));
+    res.status(200).json({"status": "success", "requestdAt": req.requestedAt, "data": response});
+};
+
+const getUserById = (req, res) => {
+    let params = req.params;
+    let response = data.find((e) => e.ID == params.id);
+    res.status(200).json({"status": "success", "requestdAt": req.requestedAt, "data": response});
+}
+
+const updateUserById = (req, res) => {
+    let params = req.params;
+    // logic
+    res.status(200).json({"status": "succes", "data": `Data entry [ID=${params.id}] has been deleted sucessfully.`});
+}
+
+const deleteUserById = (req, res) => {
+    let params = req.params;
+    // logic
+    res.status(200).json({"status": "succes", "data": `Data entry [ID=${params.id}] has been deleted sucessfully.`});
+}
+
+app.route('/api/v1/students').get(getStudent).post(getStudentsByQueryParams);
 app.route('/api/v1/students/:id').post(getStudentById).patch(updateStudent).delete(deleteStudent);
+
+app.route('/api/v1/users').get(getAllUsers).post(getUsersByQueryParams);
+app.route('/api/v1/users/:id').post(getUserById).patch(updateUserById).delete(deleteUserById);
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
