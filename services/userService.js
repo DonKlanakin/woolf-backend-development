@@ -21,11 +21,20 @@ exports.getUserById = (req, res) => {
 exports.updateUserById = (req, res) => {
     let params = req.params;
     // logic
-    res.status(200).json({"status": "succes", "data": `Data entry [ID=${params.id}] has been deleted sucessfully.`});
+    res.status(200).json({"status": "success", "message": `Data entry [ID=${params.id}] has been deleted sucessfully.`});
 }
 
 exports.deleteUserById = (req, res) => {
     let params = req.params;
     // logic
-    res.status(200).json({"status": "succes", "data": `Data entry [ID=${params.id}] has been deleted sucessfully.`});
+    res.status(200).json({"status": "success", "message": `Data entry [ID=${params.id}] has been deleted sucessfully.`});
 }
+
+exports.checkUserId = (req, res, next, val) => {
+    if (Number.isNaN(Number(val)) || Number(val) <= 0) {
+        res.status(400).json({"status": "failed.", "requestdAt": req.requestedAt, "message": "Bad request."});
+    }
+    else {
+        next();
+    }
+};
