@@ -71,11 +71,17 @@ const deleteUserById = (req, res) => {
     res.status(200).json({"status": "succes", "data": `Data entry [ID=${params.id}] has been deleted sucessfully.`});
 }
 
-app.route('/api/v1/students').get(getStudent).post(getStudentsByQueryParams);
-app.route('/api/v1/students/:id').post(getStudentById).patch(updateStudent).delete(deleteStudent);
+const studentsRoutes = express.Router();
+const usersRoutes = express.Router();
 
-app.route('/api/v1/users').get(getAllUsers).post(getUsersByQueryParams);
-app.route('/api/v1/users/:id').post(getUserById).patch(updateUserById).delete(deleteUserById);
+app.use('/api/v1/students', studentsRoutes);
+app.use('/api/v1/users', usersRoutes);
+
+studentsRoutes.route('/').get(getStudent).post(getStudentsByQueryParams);
+studentsRoutes.route('/:id').post(getStudentById).patch(updateStudent).delete(deleteStudent);
+
+usersRoutes.route('/').get(getAllUsers).post(getUsersByQueryParams);
+usersRoutes.route('/:id').post(getUserById).patch(updateUserById).delete(deleteUserById);
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
