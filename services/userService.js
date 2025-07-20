@@ -10,7 +10,7 @@ exports.getUsersByQueryParams = (req, res) => {
     let body = req.body;
     let response = data.filter((e) => e.Name.includes(body.Name));
     res.status(200).json({"status": "success", "requestdAt": req.requestedAt, "data": response});
-};
+}
 
 exports.getUserById = (req, res) => {
     let params = req.params;

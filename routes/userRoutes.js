@@ -4,7 +4,6 @@ const validator = require('../services/validator');
 
 const userRoutes = express.Router();
 //userRoutes.param('id', validateId);
-
 userRoutes.route('/')
 .get(userService.getAllUsers)
 .post(userService.getUsersByQueryParams);
