@@ -6,7 +6,7 @@ const userRoutes = express.Router();
 //userRoutes.param('id', validateId);
 userRoutes.route('/')
 .get(userService.getAllUsers)
-.post(userService.getUsersByQueryParams);
+.post(userService.createUser);
 userRoutes.route('/:id')
 .post(validator.validateId, userService.getUserById)
 .patch(validator.validateId, userService.updateUserById)
