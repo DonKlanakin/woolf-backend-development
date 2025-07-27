@@ -44,10 +44,19 @@ exports.getUserById = async (req, res) => {
     
 }
 
-exports.updateUserById = (req, res) => {
-    let params = req.params;
-    // logic
-    res.status(200).json({"status": "success", "message": `Data entry [ID=${params.id}] has been deleted sucessfully.`});
+exports.updateUserById = async (req, res) => {
+    let id = req.params.id;
+    let body = req.body;
+    let sql = `UPDATE customers
+    SET firstname = $1, lastname = $2, occupation = $3, email = $4, city = $5
+    WHERE customer_id = $6;`;
+    let values = [body.firstName, body.lastName, body.occupation, body.email, body.city, id];
+    let servResponse = await pool.query(sql, values);
+    if (servResponse.rowCount > 0) {
+        res.status(200).json({"status": "success", "message": `Data entry [ID=${id}] has been updated sucessfully.`, "data": servResponse});
+    } else {
+        res.status(400).json({"status": "failed."});
+    }
 }
 
 exports.deleteUserById = (req, res) => {
