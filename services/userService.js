@@ -6,10 +6,11 @@ let data = JSON.parse(fs.readFileSync("./students.text"));
 exports.createUser = async (req, res) => {
     let body = req.body;
     let sql = `INSERT INTO customers (firstname, lastname, occupation, email, city)
-    VALUES ('${body.firstName}', '${body.lastName}', '${body.occupation}', '${body.email}', '${body.city}');`;
-    let servResponse = await pool.query(sql);
+    VALUES ($1, $2, $3, $4, $5) RETURNING *;`;
+    let values = [body.firstName, body.lastName, body.occupation, body.email, body.city];
+    let servResponse = await pool.query(sql, values);
     if (servResponse.rowCount > 0) {
-        res.status(200).json({"status": "success", "requestSentAt": req.requestedAt, "data": body});
+        res.status(200).json({"status": "success", "requestSentAt": req.requestedAt, "data": servResponse});
     } else {
         res.status(400).json({"status": "failed."});
     }
@@ -31,10 +32,16 @@ exports.getAllUsers = async (req, res) => {
 //     res.status(200).json({"status": "success", "requestSentAt": req.requestedAt, "data": response});
 // }
 
-exports.getUserById = (req, res) => {
+exports.getUserById = async (req, res) => {
+    let sql = `SELECT * FROM customers WHERE customer_id = $1`;
     let params = req.params;
-    let response = data.find((e) => e.ID == params.id);
-    res.status(200).json({"status": "success", "requestSentAt": req.requestedAt, "data": response});
+    let servResponse = await pool.query(sql, [params.id]);
+    if (servResponse.rowCount > 0) {
+        res.status(200).json({"status": "success", "requestSentAt": req.requestedAt, "data": servResponse});
+    } else {
+        res.status(400).json({"status": "failed."});
+    }
+    
 }
 
 exports.updateUserById = (req, res) => {
