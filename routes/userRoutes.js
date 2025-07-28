@@ -3,7 +3,6 @@ const userService = require('../services/userService');
 const validator = require('../utils/validator');
 
 const userRoutes = express.Router();
-//userRoutes.param('id', validateId);
 userRoutes.route('/')
 .get(userService.getAllUsers)
 .post(userService.createUser);
