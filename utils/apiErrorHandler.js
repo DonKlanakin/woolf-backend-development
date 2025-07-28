@@ -1,4 +1,4 @@
-const errorHandler = (err, req, res, next) => {
+const apiErrorHandler = (err, req, res, next) => {
     err.status = err.status || "fail";
     err.responseCode = err.responseCode || 500;
     err.message = err.message || "An error occurred.";
@@ -9,4 +9,4 @@ const errorHandler = (err, req, res, next) => {
     });
 }
 
-module.exports = errorHandler;
+module.exports = apiErrorHandler;

@@ -4,7 +4,7 @@ const morgan = require('morgan');
 
 const systemRoutes = require('./routes/systemRoutes');
 const userRoutes = require('./routes/userRoutes');
-const errorHandler = require('./utils/errorHandler');
+const apiErrorHandler = require('./utils/apiErrorHandler');
 const dateTimeManager = require('./utils/dateTimeManager');
 
 dotenv.config({path: './configs/config.env'});
@@ -17,7 +17,7 @@ app.use(morgan('dev'));
 app.use(dateTimeManager.updateRequestInfo);
 app.use('/api/v1/users', userRoutes);
 app.use('/', systemRoutes);
-app.use(errorHandler);
+app.use(apiErrorHandler);
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
