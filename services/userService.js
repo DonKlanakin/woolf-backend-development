@@ -14,7 +14,7 @@ exports.createUser = async (req, res, next) => {
         if (servResponse.rowCount > 0) {
             res.status(200).json({"status": "success", "requestSentAt": req.requestedAt, "data": servResponse});
         } else {
-            errorHandler.throwCreationFailError("User not created.", res);
+            errorHandler.throwCreationFailureError("User not created.", res);
         }
     } catch (err) {
         errorHandler.mapError(err, req, res, next);

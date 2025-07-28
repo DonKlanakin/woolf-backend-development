@@ -5,7 +5,7 @@ exports.mapError = (err, req, res, next) => {
     next(err);
 }
 
-exports.throwCreationFailError = (prefix, res) => {
+exports.throwCreationFailureError = (prefix, res) => {
     let err = new Error();
     prefix = prefix || "",
     err.status = "fail";
