@@ -1,6 +1,6 @@
 const express = require('express');
 const userService = require('../services/userService');
-const validator = require('../services/validator');
+const validator = require('../agents/validator');
 
 const userRoutes = express.Router();
 //userRoutes.param('id', validateId);
