@@ -4,8 +4,8 @@ const morgan = require('morgan');
 
 const systemRoutes = require('./routes/systemRoutes');
 const userRoutes = require('./routes/userRoutes');
-const errorHandler = require('./agents/errorHandler');
-const dateTimeManager = require('./agents/dateTimeManager');
+const errorHandler = require('./utils/errorHandler');
+const dateTimeManager = require('./utils/dateTimeManager');
 
 dotenv.config({path: './configs/config.env'});
 const port = process.env.PORT || 8080;
