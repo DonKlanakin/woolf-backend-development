@@ -1,28 +1,28 @@
 {
-  "name": "woolf-backend-development",
-  "version": "1.0.0",
-  "description": "",
-  "homepage": "https://github.com/DonKlanakin/woolf-backend-development#readme",
-  "bugs": {
-    "url": "https://github.com/DonKlanakin/woolf-backend-development/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DonKlanakin/woolf-backend-development.git"
-  },
-  "license": "ISC",
-  "author": "DK",
-  "type": "commonjs",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
-  },
-  "dependencies": {
-    "dotenv": "^17.2.0",
-    "express": "^5.1.0",
-    "morgan": "^1.10.1",
-    "nodemon": "^3.1.10",
-    "pg": "^8.16.3"
-  }
+	"name": "woolf-backend-development",
+	"version": "1.0.0",
+	"description": "",
+	"homepage": "https://github.com/DonKlanakin/woolf-backend-development#readme",
+	"bugs": {
+		"url": "https://github.com/DonKlanakin/woolf-backend-development/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/DonKlanakin/woolf-backend-development.git"
+	},
+	"license": "ISC",
+	"author": "DK",
+	"type": "commonjs",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"dev": "nodemon index.js"
+	},
+	"dependencies": {
+		"dotenv": "^17.2.0",
+		"express": "^5.1.0",
+		"morgan": "^1.10.1",
+		"nodemon": "^3.1.10",
+		"pg": "^8.16.3"
+	}
 }
