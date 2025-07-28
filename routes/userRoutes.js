@@ -10,6 +10,6 @@ userRoutes.route('/')
 userRoutes.route('/:id')
 .post(validator.validateId, userService.getUserById)
 .patch(validator.validateId, userService.updateUserById)
-.delete(userService.deleteUserById);
+.delete(validator.validateId, userService.deleteUserById);
 
 module.exports = userRoutes;

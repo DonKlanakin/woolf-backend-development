@@ -16,8 +16,8 @@ app.use((req, res, next) => {
     req.requestedAt = new Date().toISOString();
     next();
 });
-app.use('/env', systemRoutes);
 app.use('/api/v1/users', userRoutes);
+app.use('/', systemRoutes);
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });

@@ -22,7 +22,7 @@ exports.getAllUsers = async (req, res) => {
     if (servResponse.rowCount > 0) {
         res.status(200).json({"status": "success", "requestSentAt": req.requestedAt, "data": servResponse});
     } else {
-        res.status(400).json({"status": "failed."});
+        res.status(400).json({"status": "fail"});
     }
 }
 
@@ -39,7 +39,7 @@ exports.getUserById = async (req, res) => {
     if (servResponse.rowCount > 0) {
         res.status(200).json({"status": "success", "requestSentAt": req.requestedAt, "data": servResponse});
     } else {
-        res.status(400).json({"status": "failed."});
+        res.status(400).json({"status": "fail"});
     }
     
 }
@@ -55,12 +55,17 @@ exports.updateUserById = async (req, res) => {
     if (servResponse.rowCount > 0) {
         res.status(200).json({"status": "success", "message": `Data entry [ID=${id}] has been updated sucessfully.`, "data": servResponse});
     } else {
-        res.status(400).json({"status": "failed."});
+        res.status(400).json({"status": "fail"});
     }
 }
 
-exports.deleteUserById = (req, res) => {
-    let params = req.params;
-    // logic
-    res.status(200).json({"status": "success", "message": `Data entry [ID=${params.id}] has been deleted sucessfully.`});
+exports.deleteUserById = async (req, res) => {
+    let id = req.params.id;
+    let sql = `DELETE FROM customers WHERE customer_id = $1;`;
+    let servResponse = await pool.query(sql, [id]);
+    if (servResponse.rowCount > 0) {
+        res.status(200).json({"status": "success", "message": `Data entry [ID=${id}] has been deleted sucessfully.`, "data": servResponse});
+    } else {
+        res.status(400).json({"status": "fail"});
+    }
 }
