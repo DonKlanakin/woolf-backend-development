@@ -3,5 +3,5 @@ exports.getEnv = (req, res) => {
 }
 
 exports.handleNotFound = (req, res) => {
-    res.status(404).json({"status": "fail", "message": "Path not found."});
+    res.status(404).json({"status": "fail", "message": `URL: ${req.originalUrl} not found.`});
 }
