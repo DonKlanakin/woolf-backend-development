@@ -19,7 +19,7 @@ exports.throwEntryNotFoundError = (prefix, res) => {
     prefix = prefix || "",
     err.status = "fail";
     err.responseCode = 404;
-    err.message = `${prefix} not found.`;
+    err.message = `${prefix} No entry found.`;
     throw err;
 }
 
