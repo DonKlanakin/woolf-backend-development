@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 
 const systemRoutes = require("./routes/systemRoutes");
+const userRoutes = require("./routes/userRoutes");
 const customerRoutes = require("./routes/customerRoutes");
 const apiErrorHandler = require("./utils/apiErrorHandler");
 const dateTimeManager = require("./utils/dateTimeManager");
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(express.static("./public"));
 app.use(morgan("dev"));
 app.use(dateTimeManager.updateRequestInfo);
+app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/customers", customerRoutes);
 app.use("/", systemRoutes);
 app.use(apiErrorHandler);
