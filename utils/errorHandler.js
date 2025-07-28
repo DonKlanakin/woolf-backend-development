@@ -1,7 +1,7 @@
 exports.mapError = (err, req, res, next) => {
     err.status = err.status || "fail";
     err.responseCode = err.responseCode || 500;
-    err.message = err.message || `Internal Server Error: ${err.message}`;
+    err.message = err.message || `Internal Server Error.`;
     next(err);
 }
 
