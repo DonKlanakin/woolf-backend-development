@@ -5,10 +5,11 @@ const jwt = require("jsonwebtoken");
 const errorHandler = require("../utils/errorHandler");
 dotenv.config({ path: "./configs/config.env" });
 
-exports.processCredentialForStorage = async (originalCredential) => {
+exports.processCredentialForStorage = async (providedCred) => {
 	const logPrefix = "processCredentialForStorage :";
 	try {
-		return bcrypt.hash(originalCredential, 10);
+		const hash = await bcrypt.hash(providedCred, 12);
+		return hash;
 	} catch (error) {
 		console.debug(`${logPrefix} ${error}`);
 		errorHandler.mapError(error);
@@ -20,4 +21,9 @@ exports.issueToken = async (payload) => {
 	const secretkey = process.env.JWT_SECRET_KEY;
 	const token = jwt.sign(payload, secretkey, { expiresIn: activationPeriod });
 	return token;
+};
+
+exports.validateCredential = async (providedCred, hash) => {
+	const result = await bcrypt.compare(providedCred, hash);
+	return result;
 };
