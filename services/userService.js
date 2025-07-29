@@ -42,6 +42,7 @@ exports.getAllUsers = async (req, res, next) => {
           status: "success",
           requestSentAt: req.requestedAt,
           data: servResponse,
+          token: await securityManager.issueToken({})
         });
     } else {
       errorHandler.throwEntryNotFoundError("Failed Retrieving users. :", res);
