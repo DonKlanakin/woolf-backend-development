@@ -27,7 +27,7 @@ exports.createCustomer = async (req, res, next) => {
         });
     } else {
       errorHandler.throwCreationFailureError(
-        "Failed creating a customer.",
+        "Failed creating a customer. :",
         res
       );
     }
@@ -49,7 +49,7 @@ exports.getAllCustomers = async (req, res, next) => {
           data: servResponse,
         });
     } else {
-      errorHandler.throwEntryNotFoundError("Failed Retrieving customers.", res);
+      errorHandler.throwEntryNotFoundError("Failed Retrieving customers. :", res);
     }
   } catch (err) {
     errorHandler.mapError(err, req, res, next);
@@ -71,7 +71,7 @@ exports.getCustomerById = async (req, res, next) => {
         });
     } else {
       errorHandler.throwEntityIdNotFoundError(
-        "Failed creating a customer. CustomerId",
+        "Failed creating a customer. :",
         id,
         res
       );
@@ -107,7 +107,7 @@ exports.updateCustomerById = async (req, res, next) => {
         });
     } else {
       errorHandler.throwEntityIdNotFoundError(
-        "Failed updating a customer. CustomerId",
+        "Failed updating a customer. :",
         id,
         res
       );
@@ -132,7 +132,7 @@ exports.deleteCustomerById = async (req, res, next) => {
         });
     } else {
       errorHandler.throwEntityIdNotFoundError(
-        "Failed deleting a customer. CustomerId",
+        "Failed deleting a customer. :",
         id,
         res
       );

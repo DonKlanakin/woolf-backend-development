@@ -15,7 +15,8 @@ exports.handlePathNotFound = (req, res, next) => {
 
 exports.throwPathNotFoundError = (prefix, req, res) => {
 	let err = new Error();
-	(prefix = prefix || ""), (err.status = "fail");
+	prefix = prefix || "throwPathNotFoundError :";
+	err.status = "fail";
 	err.responseCode = 404;
 	err.message = `URL: ${req.originalUrl} not found.`;
 	throw err;
@@ -23,7 +24,8 @@ exports.throwPathNotFoundError = (prefix, req, res) => {
 
 exports.throwEntryNotFoundError = (prefix, res) => {
 	let err = new Error();
-	(prefix = prefix || ""), (err.status = "fail");
+	prefix = prefix || "throwEntryNotFoundError :";
+	err.status = "fail";
 	err.responseCode = 404;
 	err.message = `${prefix} No entry found.`;
 	throw err;
@@ -31,15 +33,17 @@ exports.throwEntryNotFoundError = (prefix, res) => {
 
 exports.throwEntityIdNotFoundError = (prefix, id, res) => {
 	let err = new Error();
-	(prefix = prefix || ""), (err.status = "fail");
+	prefix = prefix || "throwEntityIdNotFoundError :";
+	err.status = "fail";
 	err.responseCode = 404;
-	err.message = `${prefix}[${id}] not found.`;
+	err.message = `${prefix} ID[${id}] not found.`;
 	throw err;
 };
 
 exports.throwCreationFailureError = (prefix, res) => {
 	let err = new Error();
-	(prefix = prefix || ""), (err.status = "fail");
+	prefix = prefix || "throwCreationFailureError :";
+	err.status = "fail";
 	err.responseCode = 400;
 	err.message = `${prefix} No changes were made.`;
 	throw err;

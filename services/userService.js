@@ -44,7 +44,7 @@ exports.getAllUsers = async (req, res, next) => {
           data: servResponse,
         });
     } else {
-      errorHandler.throwEntryNotFoundError("Failed Retrieving users.", res);
+      errorHandler.throwEntryNotFoundError("Failed Retrieving users. :", res);
     }
   } catch (err) {
     errorHandler.mapError(err, req, res, next);
