@@ -1,5 +1,7 @@
 const express = require("express");
+
 const userService = require("../services/userService");
+const securityManager = require("../security/securityManager");
 const validator = require("../utils/validator");
 
 const userRoutes = express.Router();
@@ -15,5 +17,5 @@ userRoutes
     .post(userService.loginUser);
 userRoutes
     .route("/:id")
-    .post(validator.validateId, userService.updateUserById);
+    .post(securityManager.verifyToken, validator.validateId, userService.updateUserById);
 module.exports = userRoutes;

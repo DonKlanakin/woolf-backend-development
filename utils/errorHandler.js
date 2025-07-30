@@ -7,9 +7,9 @@ exports.mapError = (err, req, res, next) => {
 
 exports.handlePathNotFound = (req, res, next) => {
 	try {
-		this.throwPathNotFoundError(null, req, res)
+		this.throwPathNotFoundError(null, req, res);
 	} catch (err) {
-    	this.mapError(err, req, res, next);
+		this.mapError(err, req, res, next);
 	}
 };
 

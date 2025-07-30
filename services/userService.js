@@ -3,6 +3,7 @@ const errorHandler = require("../utils/errorHandler");
 const securityManager = require("../security/securityManager");
 
 exports.createUser = async (req, res, next) => {
+	const logPrefix = "createUser :";
 	try {
 		let body = req.body;
 		let sqlCheckDuplicate = `SELECT * FROM users WHERE username = $1`;
@@ -34,6 +35,7 @@ exports.createUser = async (req, res, next) => {
 			errorHandler.throwCreationFailureError("Failed creating a user.", res);
 		}
 	} catch (err) {
+		console.debug(`${logPrefix} ${err}`);
 		errorHandler.mapError(err, req, res, next);
 	}
 };
@@ -50,7 +52,6 @@ exports.loginUser = async (req, res, next) => {
 		let storedCred = servResponse.rows[0].password;
 		let isValidCredential = await securityManager.validateCredential(providedCred, storedCred);
 		if (isValidCredential) {
-			let secretKey = process.env.JWT_SECRET_KEY;
 			let token = await securityManager.issueToken({
 				username: body.username
 			});
@@ -59,13 +60,15 @@ exports.loginUser = async (req, res, next) => {
 				message: "User authenticated.",
 				token: token
 			});
-		} else {
+		} else {		
 			return res.status(401).json({
 				status: "fail",
 				message: "Invalid password."
+				
 			});
 		}
 	} catch (err) {
+		console.debug(`${logPrefix} ${err}`);
 		errorHandler.mapError(err, req, res, next);
 	}
 };
@@ -114,6 +117,7 @@ exports.updateUserById = async (req, res, next) => {
 			);
 		}
 	} catch (err) {
+		console.debug(`${logPrefix} ${err}`);
 		errorHandler.mapError(err, req, res, next);
 	}
 };
