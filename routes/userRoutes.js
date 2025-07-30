@@ -7,13 +7,12 @@ const validator = require("../utils/validator");
 const userRoutes = express.Router();
 userRoutes
     .route("/")
-    .get(userService.getAllUsers);
+    .get(securityManager.verifyToken, userService.getAllUsers);
 userRoutes
     .route("/register")
     .post(userService.createUser);
 userRoutes
     .route("/login")
-    .get(userService.getAllUsers)
     .post(userService.loginUser);
 userRoutes
     .route("/:id")
