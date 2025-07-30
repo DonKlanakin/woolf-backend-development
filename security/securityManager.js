@@ -2,7 +2,6 @@ const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
 
-const errorHandler = require("../utils/errorHandler");
 dotenv.config({ path: "./configs/config.env" });
 
 exports.processCredentialForStorage = async (providedCred) => {
@@ -51,6 +50,49 @@ exports.verifyToken = (req, res, next) => {
 		return res.status(401).json({
 			status: "fail",
 			message: "Invalid token."
+		});
+	}
+	next();
+};
+
+exports.verifyOperatorLevelClearance = (req, res, next) => {
+	const logPrefix = "verifyOperatorLevelClearance :";
+	const role = req.auth.role;
+	try {
+		if (role === "operator" || role === "admin") {
+			return next();
+		} else {
+			return res.status(403).json({
+				status: "fail",
+				message: "No permission granted."
+			});
+		}
+	} catch (err) {
+		console.debug(`${logPrefix} ${err}`);
+		return res.status(403).json({
+			status: "fail",
+			message: "Verifying clearance process failed."
+		});
+	}
+};
+
+exports.verifyAdminLevelClearance = (req, res, next) => {
+	const logPrefix = "verifyAdminLevelClearance :";
+	const role = req.auth.role;
+	try {
+		if (role === "admin") {
+			return next();
+		} else {
+			return res.status(401).json({
+				status: "fail",
+				message: "No permission granted."
+			});
+		}
+	} catch (err) {
+		console.debug(`${logPrefix} ${err}`);
+		return res.status(401).json({
+			status: "fail",
+			message: "Verifying clearance process failed."
 		});
 	}
 	next();
