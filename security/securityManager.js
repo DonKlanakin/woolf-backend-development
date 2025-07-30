@@ -16,9 +16,9 @@ exports.processCredentialForStorage = async (providedCred) => {
 };
 
 exports.issueToken = async (payload) => {
-	const activationPeriod = 60 * 60;
+	const activePeriod = 60 * 60;
 	const secretkey = process.env.JWT_SECRET_KEY;
-	const token = jwt.sign(payload, secretkey, { expiresIn: activationPeriod });
+	const token = jwt.sign(payload, secretkey, { expiresIn: activePeriod });
 	return token;
 };
 

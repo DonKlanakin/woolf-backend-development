@@ -10,9 +10,9 @@ exports.createUser = async (req, res, next) => {
 		let result = await pool.query(sqlCheckDuplicate, [body.username]);
 		if (result.rowCount > 0) {
 			return res.status(400).json({
-				"status": "fail",
-				"responseCode": "400",
-				"message": "Username already exists."
+				status: "fail",
+				responseCode: "400",
+				message: "Username already exists."
 			});
 		}
 		let sql = `INSERT INTO users (firstname, lastname, email, username, password)
@@ -48,23 +48,27 @@ exports.loginUser = async (req, res, next) => {
 					WHERE username = $1`;
 		let values = [body.username];
 		let servResponse = await pool.query(sql, values);
+		let resData = servResponse.rows[0];
 		let providedCred = body.credential;
-		let storedCred = servResponse.rows[0].password;
-		let isValidCredential = await securityManager.validateCredential(providedCred, storedCred);
+		let storedCred = resData.password;
+		let isValidCredential = await securityManager.validateCredential(
+			providedCred,
+			storedCred
+		);
 		if (isValidCredential) {
 			let token = await securityManager.issueToken({
-				username: body.username
+				username: resData.username,
+				role: resData.role
 			});
 			return res.status(200).json({
 				status: "success",
 				message: "User authenticated.",
 				token: token
 			});
-		} else {		
+		} else {
 			return res.status(401).json({
 				status: "fail",
 				message: "Invalid password."
-				
 			});
 		}
 	} catch (err) {
