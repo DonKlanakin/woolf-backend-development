@@ -6,12 +6,24 @@ dotenv.config({ path: "./configs/config.env" });
 
 exports.processCredentialForStorage = async (providedCred) => {
 	const logPrefix = "processCredentialForStorage :";
+	let hash = "";
 	try {
 		const hash = await bcrypt.hash(providedCred, 12);
-		return hash;
 	} catch (err) {
 		console.debug(`${logPrefix} ${err}`);
 	}
+	return hash;
+};
+
+exports.validateCredential = async (providedCred, hash) => {
+	const logPrefix = "validateCredential :";
+	let result = "";
+	try {
+		result = await bcrypt.compare(providedCred, hash);
+	} catch (err) {
+		console.debug(`${logPrefix} ${err}`);
+	}
+	return result;
 };
 
 exports.issueToken = async (payload) => {
@@ -19,11 +31,6 @@ exports.issueToken = async (payload) => {
 	const secretkey = process.env.JWT_SECRET_KEY;
 	const token = jwt.sign(payload, secretkey, { expiresIn: activePeriod });
 	return token;
-};
-
-exports.validateCredential = async (providedCred, hash) => {
-	const result = await bcrypt.compare(providedCred, hash);
-	return result;
 };
 
 exports.verifyToken = (req, res, next) => {

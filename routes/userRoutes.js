@@ -13,7 +13,7 @@ userRoutes
 		userService.getAllUsers
 	);
 userRoutes
-    .route("/register")
+    .route("/signup")
     .post(userService.createUser);
 userRoutes
     .route("/login")

@@ -2,7 +2,7 @@ const fs = require("fs");
 const pool = require("../db/pool");
 const errorHandler = require("../utils/errorHandler");
 
-let data = JSON.parse(fs.readFileSync("./students.text"));
+let data = JSON.parse(fs.readFileSync("./public/students.text"));
 
 exports.createCustomer = async (req, res, next) => {
 	try {
