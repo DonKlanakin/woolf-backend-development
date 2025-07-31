@@ -38,7 +38,7 @@ exports.verifyToken = (req, res, next) => {
 	if (tokenParts.length !== 2 || tokenParts[0] !== "Bearer") {
 		return res.status(401).json({
 			status: "fail",
-			message: `Invalid Authentication header format. It must be "Bearer <token>."`
+			message: `Permission denied due to invalid authentication header format. It must be "Bearer <token>."`
 		});
 	}
 	try {
@@ -49,7 +49,7 @@ exports.verifyToken = (req, res, next) => {
 		console.debug(`${logPrefix} ${err}`);
 		return res.status(401).json({
 			status: "fail",
-			message: "Invalid token."
+			message: "Invalid token. Permission denied."
 		});
 	}
 	next();
@@ -64,7 +64,7 @@ exports.verifyOperatorLevelClearance = (req, res, next) => {
 		} else {
 			return res.status(403).json({
 				status: "fail",
-				message: "No permission granted."
+				message: "Permission denied."
 			});
 		}
 	} catch (err) {
@@ -85,7 +85,7 @@ exports.verifyAdminLevelClearance = (req, res, next) => {
 		} else {
 			return res.status(401).json({
 				status: "fail",
-				message: "No permission granted."
+				message: "Permission denied."
 			});
 		}
 	} catch (err) {
